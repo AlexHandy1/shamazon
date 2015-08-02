@@ -6,7 +6,7 @@
         <div class="delete-button">
           <%= link_to "Delete", order_item, method: :delete, remote: true, class: "btn btn-danger" %>
         </div>
-        <h4 class="text-center">Total Price for <%=order_item.quantity%> Items: <span style="color: green"><%=order_item.total_price %></span></h4>
+        <h4 class="text-center">Total Price for <%=order_item.quantity%> Items: <span style="color: green">£<%=number_with_precision(order_item.total_price, precision: 2) %></span></h4>
       <% end %>
   </div>
 </div>

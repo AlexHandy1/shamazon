@@ -9,7 +9,7 @@ feature 'Products' do
     visit '/'
     expect(page).to have_content("Almond Toe Court Shoes, Patent Black")
     expect(page).to have_content("Category: Women’s Footwear")
-    expect(page).to have_content("Price: £99.0")
+    expect(page).to have_content("Price: £99.00")
     expect(page).to have_content("Amount left: 5")
   end
 
@@ -18,11 +18,11 @@ feature 'Products' do
     visit '/'
     expect(page).to have_content("Almond Toe Court Shoes, Patent Black")
     expect(page).to have_content("Category: Women’s Footwear")
-    expect(page).to have_content("Price: £99.0")
+    expect(page).to have_content("Price: £99.00")
     expect(page).to have_content("Amount left: 5")
     expect(page).to have_content("Suede Shoes, Blue")
     expect(page).to have_content("Category: Women’s Footwear")
-    expect(page).to have_content("Price: £42.0")
+    expect(page).to have_content("Price: £42.00")
     expect(page).to have_content("Amount left: 4")
   end
 
@@ -34,7 +34,7 @@ feature 'Products' do
   scenario 'can be added to shopping cart from home-page and update total', js: true do
     visit '/'
     page.find('.btn-primary').click
-    expect(page).to have_content("1 Items in Cart ( 99.0 )")
+    expect(page).to have_content("1 Items in Cart ( £99.00 )")
   end
 
   scenario 'can see which products are out of stock after they have been purchased from site', js: true do

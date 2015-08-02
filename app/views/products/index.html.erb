@@ -6,7 +6,7 @@
           <h5 class='product-name'><%=product.name%></h5>
           <%=image_tag(product.image, class: "product-image center-block")%>
           <p class='product-detail'><i>Category:</i> <b><%=product.category%></b></p>
-          <p class='product-detail'><i>Price:</i> <b>£<%=product.price%></b>
+          <p class='product-detail'><i>Price:</i> <b>£<%=number_with_precision(product.price, precision: 2)%></b>
           <p class='product-detail'><i>Amount left:</i> <b><%=product.quantity%></b>
           <%= form_for @order_item, remote: true, class: "add-product" do |f| %>
               <div class="input-group">
