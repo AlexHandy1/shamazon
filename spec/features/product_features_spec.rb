@@ -25,4 +25,15 @@ feature 'Products' do
     expect(page).to have_content("Price: £42.0")
     expect(page).to have_content("Amount left: 4")
   end
+
+  scenario 'shows an empty shopping cart when arrive on home-page' do
+    visit '/'
+    expect(page).to have_content("0 Items in Cart")
+  end
+
+  scenario 'can be added to shopping cart from home-page and update total', js: true do
+    visit '/'
+    page.find('.btn-primary').click
+    expect(page).to have_content("1 Items in Cart ( 99.0 )")
+  end
 end

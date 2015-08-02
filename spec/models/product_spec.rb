@@ -6,4 +6,6 @@ describe Product do
     expect { Product.create }.to change { Product.count }.by 1
   end
 
+  it { should have_many(:order_items) }
+
 end
