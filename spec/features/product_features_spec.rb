@@ -36,4 +36,13 @@ feature 'Products' do
     page.find('.btn-primary').click
     expect(page).to have_content("1 Items in Cart ( 99.0 )")
   end
+
+  scenario 'can see which products are out of stock after they have been purchased from site', js: true do
+    visit '/'
+    5.times do
+      page.find('.btn-primary').click
+    end
+    visit '/'
+    expect(page).to have_content("Amount left: 0")
+  end
 end
