@@ -5,23 +5,23 @@ Summary
 
 * Based on the specification, I made a number of key implementation decisions:
 
-  * Chose to build in Rails to better understand how would approach integrating for typical one-page app/ including Javascript .  Ordinarily I would have elected to use a front-end framework (e.g. Angular (see [Subredditor](https://github.com/AlexHandy1/subredditor)) to allow for quicker development and greater flexibility given the scale of the app.
+  * Chose to build the website in Rails, primarily to further explore how to implement one-page, AJAX features within the framework that would commonly be used within a larger web app.  Ordinarily, I would have elected to use a stand-alone front-end framework (e.g. Angular (see [Subredditor](https://github.com/AlexHandy1/subredditor)) to allow for quicker development and greater flexibility given the limited scale of the app.
 
-  * Modelled domain with 3 key objects - Products, Orders and OrderItems (briefly summarise how calculated within this)
+  * Modelled domain with 3 key objects - Products (to manage the stock of products), OrderItems (to manage the transfer of products to orders) and Orders (to aggregate and sum OrderItems into one consolidated Order).
 
-  * Chose to use a database to hold products - used Paperclip to load up with images
+  * Chose to use Active Record to store Product and Order data - this was particularly helpful when used in concert with the Paperclip gem to store images for the products.
 
-  * Implemented vouchers as a method applied to the order class - use one at a time, not multiple, validations
+  * Interpreted vouchers as being designed to be redeemed one at a time e.g. would not allow someone to have £10 off and £15 on an order over £75 with footwear. As a result, implemented discount vouchers as an Order class attribute (vs an Active Record attribute) with a series of methods applied that update the discount attribute and update the total order cost.
 
-  * JS calls across adding and removing order items from the cart
+  * Used AJAX javascript calls for adding to cart and removing items through adding ```remote: true``` to forms and implementing correlating js.erb files for create and destroy routes.
 
-  * Significant use of partials to tie in with JS to load pages
+  * To support the clarity around what was being rendered through these javascript calls I implemented a range of partials for the total order text (top right of homepage), the shopping cart and the individual shopping cart order items.
 
-  * Bootstrap to ensure basic responsive website within grid layout
+  * Implemented the CSS Bootstrap framework to meet the mobile responsive specification and adopted a clean, 2*2 grid layout
 
-  * Unit tests because of XYZ
+  * Test driven development through unit tests and feature tests using Rspec, Capybara and Selenium (for javascript). Heavier focus on using feature tests to drive the functionality and delivery of use cases.
 
-* Challenges - JS testing with Selenium, JS overlay on Rails generally, linking up vouchers to correct route without re-structuring the JS
+* One of the major challenges I had to overcome was testing javascript with Selenium within the Rails environment. I discovered that with the Selenium driver my tests were running in a different thread and my test database was not being loaded before the relevant tests. To solve, I had to customise my database_cleaner.rb set-up to remove the use of transactional_fixtures so the truncation strategy was deployed effectively.
 
 * Further detail on areas where I would extend the application can be found listed below in 'Further improvements'
 
@@ -69,6 +69,7 @@ bin/rake db:create RAILS_ENV=test
 bin/rake db:create RAILS_ENV=development
 bin/rake db:migrate RAILS_ENV=test
 bin/rake db:migrate RAILS_ENV=development
+bin/rake db:seed
 bin/rails s
 
 #to run tests
@@ -79,19 +80,21 @@ rspec
 Technologies used
 ----
 
-* Production - Ruby-on-Rails, Javascript, jQuery, HTML, CSS (Bootstrap), Paperclip
+* Production - Ruby-on-Rails, Javascript, jQuery, HTML, CSS (Bootstrap), Paperclip (for Image file handling)
 * Testing - Rspec, Capybara, Selenium
 
 Further Improvements
 ----
 
-*  More flexible vouchers and improved validation
+*  Enhance voucher flexibility and validations e.g. currently validations covers only the core use cases and each additional voucher would require a new method implementation in the Order class
 
-*  Sortign algorthim/ logic for displaying items
+*  Add extended out of stock quantity validation and clearer UX
 
-*  Out of stock use case + validations
+*  Add checkout functionality so users can actually complete their orders (e.g. using Stripe) from the shopping cart
 
-*  Extended test suite for edge cases
+*  Develop a sorting algorthim/ logic for displaying items and implement filters e.g. show most expensive items first
 
-*  Improve layout/ styling
+*  Extend test suite for edge cases and explore improving coverage of unit tests
+
+*  Improve layout and styling to ensure consistent UX
 
