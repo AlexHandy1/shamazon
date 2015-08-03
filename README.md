@@ -25,7 +25,7 @@ Summary
 
 * Further detail on areas where I would extend the application can be found listed below in 'Further improvements'
 
-![Shamazon](https://github.com/AlexHandy1/shamazon/blob/master/Shamazon.png)
+![Shamazon](https://github.com/AlexHandy1/shamazon/blob/master/app/assets/images/Shamazon.png)
 
 Use Cases:
 -------
